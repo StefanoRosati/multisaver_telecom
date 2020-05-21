@@ -8,7 +8,7 @@
         <document label="Configuration Tool - PDF Docouments generator configuration"
                   name="pdfdoc">
             <FileSystemProxy class="max.documents.FileSystemDocProxy"
-                             path="IBShared/InfoBUSPD/InfoBusApplication/conf/pdfDocuments.xml"
+                             path="/IBShared/InfoBUSPD/InfoBusApplication/conf/pdfDocuments.xml"
                              type="proxy"/>
             <description>Configurazione del generatore di documenti PDF.</description>
             <role access="rw" name="consoleAdministrator"/>

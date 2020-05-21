@@ -64,7 +64,7 @@ public class DocumentService {
         Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
         documento = modificaInfoBusConfigService3(documento);
         fs.save(documento);
-        docproxy.save(documento);
+        //docproxy.save(documento);
         return "OK";
     }
 
