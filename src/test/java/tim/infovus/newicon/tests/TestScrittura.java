@@ -2,6 +2,7 @@ package tim.infovus.newicon.tests;
 
 //import javafx.application.Application;
 //import javafx.application.Application;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import tim.infovus.newicon.NewiconApplication;
+import tim.infovus.newicon.service.DocumentService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,9 +31,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TestScrittura {
 
     private MockMvc mockMvc;
-    String ApiBaseUrl = "http://localhost:8008/XmlApi/";
+    private final String ApiBaseUrl = "http://localhost:8008/XmlApi/";
+
     @Autowired
-    WebApplicationContext wac;
+    private WebApplicationContext wac;
+
+    @Autowired
+    private DocumentService ds;
 
     @Before
     public void setup(){
@@ -46,6 +52,12 @@ public class TestScrittura {
                 .andExpect(status().isCreated())
                 //.andExpect(jsonPath("$.status").value("200 OK"))
                 .andExpect(jsonPath("$.serviceSettingResponse").value("OK"));
+    }
+
+    @Test
+    public void chiamataDirettaScrittura() throws Exception{
+        String risposta = ds.setDocumentRepository();
+        Assertions.assertThat(risposta.equals("OK"));
     }
     /**
     @Test
