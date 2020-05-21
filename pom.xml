@@ -66,6 +66,7 @@
     		<scope>system</scope>
     		<systemPath>${basedir}/lib/eai_commons.jar</systemPath>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>old.icon.iBAxis2</groupId>
 			<artifactId>example-app</artifactId>
@@ -73,6 +74,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/iBAxis2.war</systemPath>
 		</dependency>
+		-->
 	</dependencies>
 
 	<build>
