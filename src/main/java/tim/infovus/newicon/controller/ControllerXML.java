@@ -13,6 +13,7 @@ import tim.infobus.configuration.XMLConfigException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tim.infovus.newicon.bean.response.DocumentResponse;
+import tim.infovus.newicon.bean.response.ServiceSettingResponse;
 import tim.infovus.newicon.service.DocumentService;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -40,15 +41,14 @@ public class ControllerXML {
 
     //sostituire con post
     @GetMapping(value="set/document/repository")
-    public ResponseEntity<DocumentResponse> setDocumentRepositoryController() throws XMLConfigException, MaxException, ParserConfigurationException, TransformerConfigurationException {
+    public ResponseEntity<ServiceSettingResponse> setDocumentRepositoryController() throws XMLConfigException, MaxException, ParserConfigurationException, TransformerConfigurationException {
         logger.warn(String.format("metodo setDocumentRepository chiamato"));
-        ds.setDocumentRepository();
+        String response = ds.setDocumentRepository();
         HttpHeaders hh = new HttpHeaders();
         hh.setContentType(MediaType.APPLICATION_JSON);
-        DocumentResponse res = new DocumentResponse();
-        logger.info("OK");
-        res.setDocumentNames(null);
-        return new ResponseEntity<DocumentResponse>(res,hh, HttpStatus.CREATED);
+        ServiceSettingResponse res = new ServiceSettingResponse();
+        res.setServiceSettingResponse(response);
+        return new ResponseEntity<ServiceSettingResponse>(res,hh, HttpStatus.CREATED);
     }
 
 }

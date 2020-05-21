@@ -54,7 +54,6 @@ public class DocumentService {
         XMLBuilder s;
         return dr;
     }
-
     public String setDocumentRepository() throws XMLConfigException, MaxException, ParserConfigurationException, TransformerConfigurationException {
         DocumentRepository docrepo = DocumentRepository.instance();
         DocumentProxy docproxy = docrepo.getDocumentProxy("documents");
@@ -66,59 +65,7 @@ public class DocumentService {
         documento = modificaInfoBusConfigService3(documento);
         fs.save(documento);
         docproxy.save(documento);
-        Element elemento = documento.getDocumentElement();
-        //test sull'aggiunta di un service
-        NodeList services = documento.getElementsByTagName("Services");
-        int dim = services.getLength();
-        NodeList service = documento.getElementsByTagName("Service");
-        logger.info("Dime inziaile lista dei service: {}", service.getLength());
-        //int serviceDim = service.getLength();
-        //Node servicesNode = services.item(dim);
-        //servicesNode.appendChild(services.item(0));
-        Node testservice = service.item(0);
-        Node figlio = testservice.getFirstChild();
-        Node figlioClone = figlio.cloneNode(true);
-        Node rimozione = testservice.removeChild(figlio);
-        logger.info("Dime finale lista dei service: {}", service.getLength());
-        Element elemento2 = documento.getDocumentElement();
-        documento.getDocumentElement().appendChild(figlioClone);
-        String versione = documento.getXmlVersion();
-        NodeList groups = documento.getElementsByTagName("Groups");
-        documento.setUserData(String.valueOf(Node.DOCUMENT_NODE), figlioClone, null);
-        logger.info("Size documento: {}", groups.getLength());
-        NodeList group = documento.getElementsByTagName("Group");
-        logger.info("Versione: {}", versione);
-        logger.info("Groups: {}", groups.getLength());
-        logger.info("Group: {}", group.getLength());
-        Document pdfDoc = docrepo.getDocument("pdfdoc"); //pdfdoc
-        logger.info("info documento: {}", documento.getDocumentElement());
-        Node n = groups.item(0);
-        String n_locale_name = n.getLocalName();
-        NamedNodeMap n_attributes = n.getAttributes();
-        Object n_userdata = n.getUserData("");
-        String n_node_name = n.getNodeName();
-        String n_value = n.getNodeValue();
-        n.setNodeValue("TEST2");
-        logger.info("Size documento: {}", groups.getLength());
-        logger.info("Nodo 1: {}", n);
-        documento.createElement("test");//documento.appendChild(root);
-        //documento.getFirstChild().appendChild(documento);
-        //documento.appendChild(documento);
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(documento);
-        Node firstChild = documento.getFirstChild();
-        logger.info("FirstChild: {}",firstChild.getOwnerDocument());
-        StreamResult streamResult = new StreamResult(new File("test.xml"));
-        logger.info("DocumentClass: {}", documento.getClass());
-        //DocumentProxy docproxyInfoBusService3 = docrepo.getDocumentProxy("InfoBUS");
-        docproxy.save(documento);
-        //FileSystemDocProxy fsdp = new FileSystemDocProxy();
-        //fsdp.init(documento);
-        //DocumentProxy docproxyInfoBusService3 = docrepo.getDocumentProxy("document");
-        //fsdp.init(documento);
-        //docproxyInfoBusService3.save(documento);
-        return null;
+        return "OK";
     }
 
     private Document modificaInfoBusConfigService3(Document documento){
