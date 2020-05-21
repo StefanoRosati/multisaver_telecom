@@ -66,6 +66,19 @@
     		<scope>system</scope>
     		<systemPath>${basedir}/lib/eai_commons.jar</systemPath>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit/junit5-engine -->
+		<dependency>
+			<groupId>org.junit</groupId>
+			<artifactId>junit5-engine</artifactId>
+			<version>5.0.0-ALPHA</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!--
 		<dependency>
 			<groupId>old.icon.iBAxis2</groupId>
