@@ -1,0 +1,567 @@
+<!ENTITY % odpc SYSTEM "file://ObjectDataProviderC.dtd?env=#${env}">
+%odpc;
+<!ENTITY % transportTypes "JMS-transport |HTTP-transport">
+<!ENTITY % ReplyToStoreManager "DataSourceReplyToStoreManager">
+<!ENTITY % ReplyToIDGetter "WSAStandardReplyToIDGetter|XPathReplyToIDGetter">
+<!ENTITY % ReplyToAddressGetter "WSAStandardReplyToAddressGetter|XPathReplyToAddressGetter">
+ 
+<!--
+	La root del file di configurazione.
+-->
+<!ELEMENT Axis2ContainerConfiguration (WebServices, OperationHandlers, Formatters, ReplyToHandlers, ServiceDetails)>
+<!--
+ Configurazione dei Web Services
+     #Table: | Wsdls | wsdl | name | @name
+-->
+<!ELEMENT WebServices (Description?, Wsdl*)>
+<!--
+ Url di deploy del server Axis2
+-->
+<!ATTLIST WebServices
+	deploy-path CDATA #REQUIRED
+>
+<!--
+ Configurazione di un singolo WSDL
+    #Label: @name
+     #Table: | Services | service | name | @name
+-->
+<!ELEMENT Wsdl (Description?, Service+)>
+<!--
+	Path del WSDL dal quale generare il Web Service.
+-->
+<!ATTLIST Wsdl
+path CDATA #REQUIRED
+>
+<!--
+ Identificativo del WSDL ( Valore puramente descrittivo )
+-->
+<!ATTLIST Wsdl
+	name CDATA #REQUIRED
+>
+<!--
+ Configurazione di un singolo Web Service all'interno del WSDL
+    #Label: @name
+-->
+<!ELEMENT Service (Description?, Transports, Operations)>
+<!--
+Nome del Web Service
+
+-->
+<!ATTLIST Service
+	name CDATA #REQUIRED
+>
+<!--
+ Configurazione dei trasporti del Web Service
+-->
+<!ELEMENT Transports ((%transportTypes;)+)>
+<!--
+ Configurazione di un trasport di tipo JMS
+-->
+<!ELEMENT JMS-transport (Description?)>
+<!--
+    Nome del Trasport (il trasport deve avere una corrispondenza sul file di configurazione axis2.xml)
+    
+    #NotNull
+    #References: max:document('Axis2Configuration4Container')//transportReceiver/@name
+-->
+<!ATTLIST JMS-transport
+	name CDATA #REQUIRED
+>
+<!--
+Nome della connection factory. La connection-factory deve avere una corrispondenza nel file axis2.xml
+
+-->
+<!ATTLIST JMS-transport
+	connection-factory CDATA #REQUIRED
+>
+<!--
+Nome della coda JMS
+
+-->
+<!ATTLIST JMS-transport
+	queue CDATA #REQUIRED
+>
+<!--
+ Configurazione di un trasport di tipo HTTP
+-->
+<!ELEMENT HTTP-transport (Description?)>
+<!--
+    Nome del Trasport (il trasport deve avere una corrispondenza sul file di configurazione axis2.xml) FORSE
+    
+    #NotNull
+    #References: max:document('Axis2Configuration4Container')//transportReceiver/@name
+-->
+<!ATTLIST HTTP-transport
+	name CDATA #REQUIRED
+>
+<!--
+ Configurazione delle Operation del Web Service
+  #Table: | Operations | Operation | name | @name
+-->
+<!ELEMENT Operations (Operation+)>
+<!--
+ Configurazione di una Operation all'interno del WSDL
+-->
+<!ELEMENT Operation (Description?)>
+<!--
+Nome della Operation
+
+-->
+<!ATTLIST Operation
+	name CDATA #REQUIRED
+>
+<!--
+Nome del Trasport (il trasport deve avere una corrispondenza sul file di configurazione axis2.xml) FORSE
+
+-->
+<!ATTLIST Operation
+	mep ( in-out| in-only) "in-out" 
+>
+<!--
+Nome del Trasport (il trasport deve avere una corrispondenza sul file di configurazione axis2.xml) FORSE
+#References: /Axis2ContainerConfiguration/OperationHandlers/OperationHandler/@id
+-->
+<!ATTLIST Operation
+	operation-handler CDATA #REQUIRED
+>
+<!--
+ Configurazione degli handler
+-->
+<!ELEMENT OperationHandlers (Description?, OperationHandler+)>
+<!--
+    Configurazione dei un singolo handler
+    #Label: @id
+-->
+<!ELEMENT OperationHandler (Description?)>
+<!--
+Identificativo del container
+
+-->
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST OperationHandler
+	type CDATA #FIXED "operationHandler"
+>
+<!ATTLIST OperationHandler
+	id CDATA #REQUIRED
+>
+<!--
+    Formatter di richiesta
+    
+    #References: /Axis2ContainerConfiguration/Formatters/*[@type='Axis2RequestFormatter']/@id
+-->
+<!ATTLIST OperationHandler
+	request-formatter CDATA #REQUIRED
+>
+<!--
+    Formatter di risposta
+    
+    #References: /Axis2ContainerConfiguration/Formatters/*[@type='Axis2ResponseFormatter']/@id
+-->
+<!ATTLIST OperationHandler
+	response-formatter CDATA #IMPLIED
+>
+<!--
+    Formatter del fault
+
+    #References: /Axis2ContainerConfiguration/Formatters/*[@type='Axis2FaultFormatter']/@id
+-->
+<!ATTLIST OperationHandler
+	fault-formatter CDATA #IMPLIED
+>
+<!--
+    Gestore delle risposte in differita
+    
+    #References: /Axis2ContainerConfiguration/ReplyToHandlers/*[@type='replyToHandler']/@id
+-->
+<!ATTLIST OperationHandler
+	replyto-handler CDATA #IMPLIED
+>
+
+
+<!--
+Configurazione dei formatter
+
+-->
+<!ELEMENT Formatters ((Axis2ODPRequestFormatter|Axis2ODPResponseFormatter|Axis2ODPFaultFormatter)*)>
+
+
+<!--
+ Configurazione degli ReplyToHandlers
+-->
+<!ELEMENT ReplyToHandlers (Description?, ContainerReplyToHandler*)>
+
+
+
+<!--
+ Configurazione di un ContainerReplyToHandler
+ 
+ #Label: @id
+-->
+<!ELEMENT ContainerReplyToHandler (Description?, ReplyToGetter, (%ReplyToStoreManager;))>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST ContainerReplyToHandler
+	type CDATA #FIXED "replyToHandler"
+>
+
+<!--
+Identificativo dell'handler
+
+-->
+<!ATTLIST ContainerReplyToHandler
+	id CDATA #REQUIRED
+>
+
+<!--
+ Configurazione di un ReplyToGetter
+-->
+<!ELEMENT ReplyToGetter (Description?, (%ReplyToIDGetter;), (%ReplyToAddressGetter;))>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST ReplyToGetter
+	type CDATA #FIXED "replyToGetter"
+>
+
+<!--
+ Configurazione di un getter standard dell' ID. L'id viene prelevado dal WS-Addressing
+-->
+<!ELEMENT WSAStandardReplyToIDGetter (Description?)>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST WSAStandardReplyToIDGetter
+	type CDATA #FIXED "replyToIDGetter"
+>
+
+<!--
+Classe
+
+-->
+<!ATTLIST WSAStandardReplyToIDGetter
+	class CDATA #FIXED "tim.infobus.axis2.replyto.ContainerWSAStandardReplyToGetter"
+>
+
+
+<!--
+    Configurazione di un getter ID di tipo Xpath
+    
+    #Label: @xpath
+-->
+<!ELEMENT XPathReplyToIDGetter (NameSpace*, Description?)>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST XPathReplyToIDGetter
+	type CDATA #FIXED "replyToIDGetter"
+>
+
+<!--
+Classe
+
+-->
+<!ATTLIST XPathReplyToIDGetter
+	class CDATA #FIXED "tim.infobus.axis2.replyto.ContainerXPathEnvelopeReplyToGetter"
+>
+
+<!--
+    Xpath per il prelievo dell'id
+    
+    #NotNull
+-->
+<!ATTLIST XPathReplyToIDGetter
+	xpath CDATA #REQUIRED
+>
+
+<!--
+    Namespace
+
+    #Label: concat(@prefix,":",@uri)
+-->
+<!ELEMENT NameSpace (Description?)>
+
+<!--
+    prefisso
+    #NotNull
+-->
+<!ATTLIST NameSpace
+	prefix CDATA #REQUIRED
+>
+
+<!--
+    URI
+    #NotNull
+-->
+<!ATTLIST NameSpace
+	uri CDATA #REQUIRED
+>
+
+
+<!--
+ Configurazione di un getter standard dell' address di risposta. L'id viene prelevado dal WS-Addressing
+-->
+<!ELEMENT WSAStandardReplyToAddressGetter (Description?)>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST WSAStandardReplyToAddressGetter
+	type CDATA #FIXED "replyToAddressGetter"
+>
+
+<!--
+Classe
+
+-->
+<!ATTLIST WSAStandardReplyToAddressGetter
+	class CDATA #FIXED "tim.infobus.axis2.replyto.ContainerWSAStandardReplyToGetter"
+>
+
+<!--
+    Configurazione di un getter ID di tipo Xpath
+
+    #Label: @xpath
+-->
+<!ELEMENT XPathReplyToAddressGetter (NameSpace*, Description?)>
+
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST XPathReplyToAddressGetter
+	type CDATA #FIXED "replyToAddressGetter"
+>
+
+<!--
+Classe
+
+-->
+<!ATTLIST XPathReplyToAddressGetter
+	class CDATA #FIXED "tim.infobus.axis2.replyto.ContainerXPathEnvelopeReplyToGetter"
+>
+
+<!--
+    Xpath per il prelievo dell'address di risposta
+    #NotNull
+-->
+<!ATTLIST XPathReplyToAddressGetter
+	xpath CDATA #REQUIRED
+>
+
+<!--
+ Configurazione di uno store di tipo DB
+ 
+ #Label: @dataSource-jndi-name
+-->
+<!ELEMENT DataSourceReplyToStoreManager (Description?)>
+<!--
+Tipo di nodo
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	type CDATA #FIXED "replyToStoreManager"
+>
+<!--
+Classe
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	class CDATA #FIXED "tim.infobus.axis2.replyto.DataSourceReplyToStoreManager"
+>
+<!--
+    Nome JNDI del DataSource per la connessione al database
+
+    #NotNull
+    #References: max:document('WLSConfiguration')//JDBCDataSource/@JNDIName
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	dataSource-jndi-name CDATA #REQUIRED
+>
+<!--
+    Nome della tabella dei CorrelationID nel database
+    
+    #NotNull
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	table-name CDATA #IMPLIED
+>
+<!--
+    Esegue il test della tabella delle correlazioni al momento dell'inizializzazione 
+    per rilevare subito errori che altrimenti avverrebero in seguito alla chiamata 
+    del servizio InfoBUS con potenziali problemi di duplicazione dei messaggi.
+    
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	test-on-init (yes|no) "no"
+>
+<!--
+    Modalita' di cancellazione dalla tabella delle correlazioni in seguito alla 
+    ricezione del messaggio di risposta:
+    - MARK_DELETABLE: Inserisce nella riga della tabella la data di chiusura ma non cancella la riga
+    - DELETE: Cancella la riga
+    
+-->
+<!ATTLIST DataSourceReplyToStoreManager
+	delete-mode (DELETE|MARK_DELETABLE) "MARK_DELETABLE"
+>
+
+
+<!--
+ Configurazione dei ServiceDetails
+-->
+<!ELEMENT ServiceDetails (Description?, ServiceDetail*)>
+
+<!--
+    Configurazioni da applicare nell'invocazione dei servizi InfoBUS.
+    
+    #Label: @id-service
+-->
+<!ELEMENT ServiceDetail (Description?)>
+<!--
+Tipo di nodo
+
+-->
+<!ATTLIST ServiceDetail
+	type CDATA #FIXED "serviceDetail"
+>
+
+<!--
+    servizio InfoBUS
+    
+    #References: max:document('InfobusServicesConfig-#${env}')/InfoBUS/Services/Service/@id-service
+    #References: max:document('InfobusServicesConfig-#${env}')/InfoBUS/Services/Service/AliasList/Alias/@alias
+    #NotNull
+-->
+<!ATTLIST ServiceDetail
+	id-service CDATA #REQUIRED
+>
+
+<!--
+    Apre una transazione XA che contiene l'invocazione del servizio InfoBUS
+-->
+<!ATTLIST ServiceDetail
+	transacted (yes|no) "no"
+>
+
+<!ELEMENT MessageContextInputDataProvider4Axis2Container %Axis2MessageContextInputDataProviderDef;>
+<!ATTLIST MessageContextInputDataProvider4Axis2Container
+	type CDATA #FIXED "InputDataProvider"
+>
+<!ATTLIST MessageContextInputDataProvider4Axis2Container
+	id CDATA #FIXED "inputMessageContext"
+>
+<!ELEMENT IBDataOutputDataProvider4Axis2Container %IBDataOutputDataProviderDef;>
+<!ATTLIST IBDataOutputDataProvider4Axis2Container
+	type CDATA #FIXED "OutputDataProvider"
+>
+<!ATTLIST IBDataOutputDataProvider4Axis2Container
+	id CDATA #FIXED "outputIBData"
+>
+<!--
+    Formatter basato sugli ODP
+    
+    #Label: @id
+-->
+<!ELEMENT Axis2ODPRequestFormatter (ConstantFields, MessageContextInputDataProvider4Axis2Container, InternalElaboration, IBDataOutputDataProvider4Axis2Container)>
+<!ATTLIST Axis2ODPRequestFormatter
+	class CDATA #FIXED "tim.infobus.axis2.container.ObjectDataProviderRequestFormatter"
+>
+<!ATTLIST Axis2ODPRequestFormatter
+	type CDATA #FIXED "Axis2RequestFormatter"
+>
+<!--
+    Identificativo del formatter
+    
+    #Unique: ../*/@id
+    #NotNull
+-->
+<!ATTLIST Axis2ODPRequestFormatter
+	id CDATA #REQUIRED
+>
+
+<!ELEMENT IBDataInputDataProvider4Axis2Container %IBDataInputDataProviderDef;>
+<!ATTLIST IBDataInputDataProvider4Axis2Container
+	type CDATA #FIXED "InputDataProvider"
+>
+<!ATTLIST IBDataInputDataProvider4Axis2Container
+	id CDATA #FIXED "inputIBData"
+>
+<!ELEMENT MessageContextOutputDataProvider4Axis2Container %Axis2MessageContextOutputDataProviderDef;>
+<!ATTLIST MessageContextOutputDataProvider4Axis2Container
+	type CDATA #FIXED "OutputDataProvider"
+>
+<!ATTLIST MessageContextOutputDataProvider4Axis2Container
+	id CDATA #FIXED "outputMessageContext"
+>
+
+<!--
+    Formatter basato sugli ODP
+    
+    #Label: @id
+-->
+<!ELEMENT Axis2ODPResponseFormatter (ConstantFields, IBDataInputDataProvider4Axis2Container, MessageContextInputDataProvider4Axis2Container, 
+                                     InternalElaboration, MessageContextOutputDataProvider4Axis2Container)>
+<!ATTLIST Axis2ODPResponseFormatter
+	class CDATA #FIXED "tim.infobus.axis2.container.ObjectDataProviderRequestFormatter"
+>
+<!ATTLIST Axis2ODPResponseFormatter
+	type CDATA #FIXED "Axis2ResponseFormatter"
+>
+<!--
+    Identificativo del formatter
+    
+    #Unique: ../*/@id
+    #NotNull
+-->
+<!ATTLIST Axis2ODPResponseFormatter
+	id CDATA #REQUIRED
+>
+
+<!ELEMENT ExceptionInputDataProvider4Axis2Container %ExceptionInputDataProviderDef;>
+<!ATTLIST ExceptionInputDataProvider4Axis2Container
+	type CDATA #FIXED "InputDataProvider"
+>
+<!ATTLIST ExceptionInputDataProvider4Axis2Container
+	id CDATA #FIXED "inputException"
+>
+<!ELEMENT Axis2FaultOutputDataProvider4Axis2Container %Axis2FaultOutputDataProviderDef;>
+<!ATTLIST Axis2FaultOutputDataProvider4Axis2Container
+	type CDATA #FIXED "OutputDataProvider"
+>
+<!ATTLIST Axis2FaultOutputDataProvider4Axis2Container
+	id CDATA #FIXED "outputAxis2Fault"
+>
+
+<!--
+    Formatter basato sugli ODP
+    
+    #Label: @id
+-->
+<!ELEMENT Axis2ODPFaultFormatter (ConstantFields, ExceptionInputDataProvider4Axis2Container, MessageContextInputDataProvider4Axis2Container, 
+                                  InternalElaboration, Axis2FaultOutputDataProvider4Axis2Container)>
+<!ATTLIST Axis2ODPFaultFormatter
+	class CDATA #FIXED "tim.infobus.axis2.container.ObjectDataProviderRequestFormatter"
+>
+<!ATTLIST Axis2ODPFaultFormatter
+	type CDATA #FIXED "Axis2FaultFormatter"
+>
+<!--
+    Identificativo del formatter
+    
+    #Unique: ../*/@id
+    #NotNull
+-->
+<!ATTLIST Axis2ODPFaultFormatter
+	id CDATA #REQUIRED
+>

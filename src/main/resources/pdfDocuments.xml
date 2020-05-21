@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE documents SYSTEM "file://max/dtds/pdfDocuments.dtd">
+
+<documents version="1.0">
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="InfoBUS-Service" type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a." title="InfoBUS Throughput"
+               version="4.4"/>
+        <dtd-ref publicId="" rootElement="ThroughputConfig"
+                 systemId="file://ThroughputConfig.dtd" title="InfoBUS Throughput">
+            <description>Configurazione del Throughput di InfoBUS.</description>
+        </dtd-ref>
+    </configuration-guide>
+    <configuration-document class="max.documentation.xml.XmlDocumentationPlugin"
+                            id="IBCore" rootElement="IBCore" type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a."
+               title="Configurazione del core di InfoBUS" version="4.4">
+            <description>File di configurazione del core di InfoBUS</description>
+        </cover>
+        <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
+                                    resource="xsl/IBCore.xsl" type="stylesheet-src"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Systems.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Services.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Templates.xml" type="proxy"/>
+    </configuration-document>
+    <configuration-document class="max.documentation.xml.XmlDocumentationPlugin"
+                            id="MonitoringTest" rootElement="MonitoringTest"
+                            type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a."
+               title="Configurazione degli strumenti di Test e Monitoraggio di InfoBUS"
+               version="4.4">
+            <description>File di configurazione di Workbench, Log4j, Statistiche...</description>
+        </cover>
+        <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
+                                    resource="xsl/MonitoringTest.xsl"
+                                    type="stylesheet-src"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="WorkbenchConfig.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="StatisticsConfig.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy" resource="log4j.xml"
+                        type="proxy"/>
+    </configuration-document>
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="IBJConnector" type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a." title="Configurazione del connettore"
+               version="4.4"/>
+        <dtd-ref publicId="" rootElement="IBJClientConfiguration"
+                 systemId="file://IBConnectorConfig.dtd" title="InfoBUS Connector">
+            <description>Configurazione del connettore di InfoBUS.</description>
+        </dtd-ref>
+    </configuration-guide>
+    <configuration-document class="max.documentation.xml.XmlDocumentationPlugin"
+                            id="InfoBUSMBeans" type="document">
+        <cover author="Reply S.p.A." owner="TIM S.p.A." title="InfoBUS - MBeans"
+               version="4.7">
+            <description>Funzionalità JMX di InfoBUS.</description>
+        </cover>
+        <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
+                                    resource="xsl/jmxDocumentation.xsl"
+                                    type="stylesheet-src"/>
+        <RegistryProxy class="max.documents.RegistryDocProxy" resource="jmx" type="proxy">
+            <description>Configurazione delle funzionalità JMX.</description>
+        </RegistryProxy>
+    </configuration-document>
+</documents>

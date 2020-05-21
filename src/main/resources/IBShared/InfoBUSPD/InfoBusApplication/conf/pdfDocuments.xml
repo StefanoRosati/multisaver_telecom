@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE documents SYSTEM "file://max/dtds/pdfDocuments.dtd">
+
+<documents version="1.0">
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="InfoBUS-Systems" type="document">
+        <cover author="Sytel/Reply" owner="TIM S.p.A."
+               title="InfoBUS Systems Configuration" version="R.5">
+            <description>Guida alla configurazione dei sistemi connessi a InfoBUS.</description>
+        </cover>
+        <dtd-ref publicId="" rootElement="InfoBUS"
+                 systemId="file://InfoBUS-Systems.dtd?env=R4{J|C}"
+                 title="Guida alla configurazione dei sistemi connessi ad InfoBUS"/>
+    </configuration-guide>
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="InfoBUS-Templates" type="document">
+        <cover author="Sytel/Reply" owner="TIM S.p.A."
+               title="InfoBUS Templates Configuration" version="4.5">
+            <description>Guida alla configurazione dei template di workflow per InfoBUS.</description>
+        </cover>
+        <dtd-ref publicId="" rootElement="FlowTemplates"
+                 systemId="file://InfoBUS-Templates-Definition.dtd?env=R4{J|C}"
+                 title="Guida alla configurazione dei template di workflow per InfoBUS."/>
+    </configuration-guide>
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="InfoBUS-Services" type="document">
+        <cover author="Sytel/Reply" owner="TIM S.p.A."
+               title="InfoBUS Services Configuration" version="4.5">
+            <description>Guida alla configurazione dei servizio di InfoBUS.</description>
+        </cover>
+        <dtd-ref publicId="" rootElement="InfoBUS"
+                 systemId="file://InfoBUS-Services.dtd?env=R4{J|C}"
+                 title="Guida alla configurazione dei servizi di InfoBUS."/>
+    </configuration-guide>
+    <configuration-document class="max.documentation.xml.XmlDocumentationPlugin"
+                            id="IBCore" rootElement="IBCore" type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a."
+               title="Configurazione del core di InfoBUS" version="4.5">
+            <description>File di configurazione del core di InfoBUS</description>
+        </cover>
+        <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
+                                    resource="xsl/IBCore.xsl" type="stylesheet-src"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Systems.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Services.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="InfoBUS-Templates.xml" type="proxy"/>
+    </configuration-document>
+    <configuration-document class="max.documentation.xml.XmlDocumentationPlugin"
+                            id="IBErrorCatalog" rootElement="IBErrorCatalogs"
+                            type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a."
+               title="Catalogo degli errori di InfoBUS" version="4.5">
+            <description>File di configurazione dei cataloghi degli errori d InfoBUS</description>
+        </cover>
+        <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
+                                    resource="xsl/IBErrorCatalog.xsl"
+                                    type="stylesheet-src"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.connector.channels.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.connector.extensions.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.connector.channels.ibvm.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.connector.transaction.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.core.exc.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.data.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.ibxdt.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.internal.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.j2ee.db.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.j2ee.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.notification.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.statistics.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.virtual.db.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.virtual.Errors.xml" type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.virtual.j2ee.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.virtual.jca.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.virtual.wtc.Errors.xml"
+                        type="proxy"/>
+        <ClasspathProxy class="max.documents.ClasspathDocProxy"
+                        resource="catalogs/tim.infobus.wtc.Errors.xml" type="proxy"/>
+    </configuration-document>
+    <configuration-guide class="max.documentation.dtd.DtdDocumentationPlugin"
+                         id="IBJConnector" type="document">
+        <cover author="Reply S.p.a." owner="TIM S.p.a."
+               title="Configurazione del connettore" version="4.5"/>
+        <dtd-ref publicId="" rootElement="IBJClientConfiguration"
+                 systemId="file://IBConnectorConfig.dtd" title="InfoBUS Connector">
+            <description>Configurazione del connettore di InfoBUS.</description>
+        </dtd-ref>
+    </configuration-guide>
+</documents>

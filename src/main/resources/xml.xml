@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE xml SYSTEM "file://max/dtds/xml.dtd">
+
+<xml copyright="Maxime Informatica Intranet Framework" provider="MAX_XML_PROVIDER">
+    <context context="/icon" invoke="/icon/MaxXMLServlet"/>
+    <stylesheet use-pool="false"/>
+    <details category="detailsXSLT"/>
+    <entity-resolver>
+        <max-entity-resolver category="entities" class="max.xml.MaxEntityResolver"
+                             prefix="file://" type="entity-resolver"/>
+    </entity-resolver>
+    <xpath xpath-factory="max.xpath.jaxen.JaxenXPathAPIFactoryImpl">
+        <description>Funzioni estese per l&apos;XPath.</description>
+        <xpath-extension class="max.documents.MaxDocumentXPathFunction"
+                         function-name="document">
+            <description>Accede ad un documento registrato nel DocumentRepository.</description>
+        </xpath-extension>
+        <xpath-extension class="max.xml.MaxPatternXPathFunction" function-name="match"/>
+        <xpath-namespace namespace="http://www.w3.org/2001/XMLSchema" prefix="xsd"/>
+        <xpath-namespace namespace="http://www.w3.org/2001/XMLSchema-instance"
+                         prefix="xsi"/>
+        <xpath-namespace namespace="http://www.reply.it/infobus" prefix="ib"/>
+        <xpath-namespace namespace="http://schemas.xmlsoap.org/soap/encoding/"
+                         prefix="soapenc"/>
+        <xpath-namespace namespace="http://schemas.xmlsoap.org/wsdl/soap/" prefix="soap"/>
+        <xpath-namespace namespace="http://schemas.xmlsoap.org/wsdl/" prefix="wsdl"/>
+        <xpath-namespace namespace="http://jakarta.apache.org/log4j/" prefix="log4j"/>
+        <xpath-namespace namespace="http://www.w3.org/XML/1998/namespace" prefix="xml"/>
+    </xpath>
+    <xquery>
+        <description>Funzioni estese e namespaces per l&apos;XQuery.</description>
+        <xquery-extension class="tim.infobus.icon.xquery.functions.DocumentReader">
+            <description>....</description>
+        </xquery-extension>
+    </xquery>
+</xml>

@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: NewIconProject
+
+server:
+    port: 8006
