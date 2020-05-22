@@ -13,6 +13,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 //i documenti con <!DOCTYPE ...> generano excpetion alla seconda esecuzione dei metodi
 
@@ -61,25 +65,27 @@ public class DocumentService {
     }
 
     private Document modificaInfoBusConfigService3(Document documento){
-        NodeList services = documento.getElementsByTagName("Services");
         NodeList service = documento.getElementsByTagName("Service");
-        Node ser;
-        NamedNodeMap attributes;
-        Node attribute;
-        int dim = service.getLength();
-        //TODO: usare lambda
-        /**
-         * Richiede un'implemntazione con Builder di Node
-         Stream<Node> nodeStream = IntStream.range(0, service.getLength())
+        Stream<Node> nodeStream = IntStream.range(0, service.getLength())
          .mapToObj(service::item);
-         **/
-        for(int i=0;i<dim;i++){
-            ser = service.item(i);
-            attributes = ser.getAttributes();
-            attribute = attributes.item(0);
-            attribute.setNodeValue("TEST_STEFANO");
-        }
+        List<Node> nodeStreamModificato = nodeStream.map(x -> {
+            x.getAttributes().item(0).setNodeValue("TEST_STEFANO_ROSATI");
+            return x;
+        }).collect(Collectors.toList());
         return documento;
+        /**
+         NodeList services = documento.getElementsByTagName("Services");
+         Node ser;
+         NamedNodeMap attributes;
+         Node attribute;
+         int dim = service.getLength();
+
+         for(int i=0;i<dim;i++){
+         ser = service.item(i);
+         attributes = ser.getAttributes();
+         attribute = attributes.item(0);
+         attribute.setNodeValue("TEST_STEFANO");
+         }**/
     }
 
     public String deleteElementInfoBusConfigService3() throws MaxException, XMLConfigException {
