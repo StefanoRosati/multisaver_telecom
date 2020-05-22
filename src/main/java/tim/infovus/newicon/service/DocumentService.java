@@ -2,32 +2,19 @@ package tim.infovus.newicon.service;
 
 import max.core.MaxException;
 import max.documents.*;
-import max.xml.DocumentModel;
 import max.xml.XMLBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import tim.infobus.configuration.XMLConfigException;
-import tim.infovus.newicon.bean.response.DocumentResponse;
 import tim.infovus.newicon.controller.ControllerXML;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+//i documenti con <!DOCTYPE ...> generano excpetion alla seconda esecuzione dei metodi
 
 @Service
 public class DocumentService {
@@ -55,17 +42,22 @@ public class DocumentService {
         return dr;
     }
     public String setDocumentRepository() throws XMLConfigException, MaxException, ParserConfigurationException, TransformerConfigurationException {
-        DocumentRepository docrepo = DocumentRepository.instance();
-        DocumentProxy docproxy = docrepo.getDocumentProxy("documents");
-        logger.info("instanceof:{}",docproxy.getClass());
-        logger.info("DocumentRepositoryName: {}", docrepo.getDocumentNames());
-        logger.info("DocumentProxy: {}", docproxy);
-        DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
-        Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
-        documento = modificaInfoBusConfigService3(documento);
-        fs.save(documento);
-        //docproxy.save(documento);
-        return "OK";
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+            DocumentProxy docproxy = docrepo.getDocumentProxy("documents");
+            logger.info("instanceof:{}", docproxy.getClass());
+            logger.info("DocumentRepositoryName: {}", docrepo.getDocumentNames());
+            logger.info("DocumentProxy: {}", docproxy);
+            DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
+            Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
+            documento = modificaInfoBusConfigService3(documento);
+            fs.save(documento);
+            //docproxy.save(documento);
+            return "OK";
+        }
+        catch(Exception e){
+            return "KO";
+        }
     }
 
     private Document modificaInfoBusConfigService3(Document documento){
@@ -75,6 +67,12 @@ public class DocumentService {
         NamedNodeMap attributes;
         Node attribute;
         int dim = service.getLength();
+        //TODO: usare lambda
+        /**
+         * Richiede un'implemntazione con Builder di Node
+         Stream<Node> nodeStream = IntStream.range(0, service.getLength())
+         .mapToObj(service::item);
+         **/
         for(int i=0;i<dim;i++){
             ser = service.item(i);
             attributes = ser.getAttributes();
@@ -82,5 +80,34 @@ public class DocumentService {
             attribute.setNodeValue("TEST_STEFANO");
         }
         return documento;
+    }
+
+    public String deleteElementInfoBusConfigService3() throws MaxException, XMLConfigException {
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+            DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
+            Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
+            //passando Services come argomento si cancella l'intera lista dei Services
+            NodeList service = documento.getElementsByTagName("Service");
+            Node e = service.item((0));
+            e.getParentNode().removeChild(e);
+            fs.save(documento);
+            return "OK";
+        }
+        catch(Exception e){
+            return "KO";
+        }
+/**
+        Set<Element> targetElements = new HashSet<Element>();
+        for (int i = 0; i < services.getLength(); i++) {
+            Element e = (Element)services.item(i);
+            if (certain criteria involving Element e) {
+                targetElements.add(e);
+            }
+        }
+        for (Element e: targetElements) {
+            e.getParentNode().removeChild(e);
+        }
+ **/
     }
 }

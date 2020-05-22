@@ -51,4 +51,13 @@ public class ControllerXML {
         return new ResponseEntity<ServiceSettingResponse>(res,hh, HttpStatus.CREATED);
     }
 
+    //sostituire con post
+    @GetMapping(value="delete/element/document/repository")
+    public ResponseEntity<?> deleteElementDocumentRepositoryController() throws XMLConfigException, MaxException {
+        String response = ds.deleteElementInfoBusConfigService3();
+        HttpHeaders hh = new HttpHeaders();
+        hh.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
+    }
+
 }
