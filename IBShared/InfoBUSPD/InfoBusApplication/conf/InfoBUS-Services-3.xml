@@ -24,24 +24,6 @@
     </Groups>
     <Services re-id-service="[q-zQ-Z][a-zA-Z0-9_+-]*">
         <Description>Questa sezione contiene l&apos;elenco di tutti i servizi forniti da InfoBUS, i client abilitati ad invocarli ed i gruppi di appartenenza.</Description>
-        <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_VALIDATOR"
-                 service-activation="on">
-            <Description>Servizio di test per verificare il validator framework.</Description>
-            <Clients>
-                <Client id-system="INFOBUS" statistics="off" system-activation="on">
-                    <Operation name="RequestReply" operation-activation="on"
-                               out-check-type="sys-svc-tid" type="operation">
-                        <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
-                        <FlowTemplateInstance name="RequestReply" schema="SY_SY">
-                            <OperationAssignment assignment-type="Operation"
-                                                 id="call_server" id-system="INFOBUS"
-                                                 operation-name="toupper_call"
-                                                 type="assignment"/>
-                        </FlowTemplateInstance>
-                    </Operation>
-                </Client>
-            </Clients>
-        </Service>
         <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
                  service-activation="on">
             <Clients>
@@ -58,6 +40,59 @@
                     </Operation>
                 </Client>
             </Clients>
+            <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                     service-activation="OFF">
+                <Clients>
+                    <Client id-system="BIP-OPEN" statistics="off" system-activation="on">
+                        <Operation name="RequestReply" operation-activation="on"
+                                   out-check-type="none" type="operation">
+                            <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                            <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                <OperationAssignment assignment-type="Operation"
+                                                     id="call_server" id-system="INFOBUS"
+                                                     operation-name="toupper_call"
+                                                     type="assignment"/>
+                            </FlowTemplateInstance>
+                        </Operation>
+                    </Client>
+                </Clients>
+            </Service>
+            <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                     service-activation="OFF">
+                <Clients>
+                    <Client id-system="BIP-OPEN" statistics="off" system-activation="on">
+                        <Operation name="RequestReply" operation-activation="on"
+                                   out-check-type="none" type="operation">
+                            <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                            <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                <OperationAssignment assignment-type="Operation"
+                                                     id="call_server" id-system="INFOBUS"
+                                                     operation-name="toupper_call"
+                                                     type="assignment"/>
+                            </FlowTemplateInstance>
+                        </Operation>
+                    </Client>
+                </Clients>
+                <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                         service-activation="OFF">
+                    <Clients>
+                        <Client id-system="BIP-OPEN" statistics="off"
+                                system-activation="on">
+                            <Operation name="RequestReply" operation-activation="on"
+                                       out-check-type="none" type="operation">
+                                <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                                <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                    <OperationAssignment assignment-type="Operation"
+                                                         id="call_server"
+                                                         id-system="INFOBUS"
+                                                         operation-name="toupper_call"
+                                                         type="assignment"/>
+                                </FlowTemplateInstance>
+                            </Operation>
+                        </Client>
+                    </Clients>
+                </Service>
+            </Service>
         </Service>
         <Service agesp="TEST_STEFANO_ROSATI" group-name="OPSC" id-service="RESTOREG"
                  kit="DICEMBRE 2009 SVIL" service-activation="on" year="2009">
@@ -3083,6 +3118,76 @@
                     </Operation>
                 </Client>
             </Clients>
+        </Service>
+        <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                 service-activation="OFF">
+            <Clients>
+                <Client id-system="BIP-OPEN" statistics="off" system-activation="on">
+                    <Operation name="RequestReply" operation-activation="on"
+                               out-check-type="none" type="operation">
+                        <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                        <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                            <OperationAssignment assignment-type="Operation"
+                                                 id="call_server" id-system="INFOBUS"
+                                                 operation-name="toupper_call"
+                                                 type="assignment"/>
+                        </FlowTemplateInstance>
+                    </Operation>
+                </Client>
+            </Clients>
+            <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                     service-activation="OFF">
+                <Clients>
+                    <Client id-system="BIP-OPEN" statistics="off" system-activation="on">
+                        <Operation name="RequestReply" operation-activation="on"
+                                   out-check-type="none" type="operation">
+                            <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                            <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                <OperationAssignment assignment-type="Operation"
+                                                     id="call_server" id-system="INFOBUS"
+                                                     operation-name="toupper_call"
+                                                     type="assignment"/>
+                            </FlowTemplateInstance>
+                        </Operation>
+                    </Client>
+                </Clients>
+            </Service>
+            <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                     service-activation="OFF">
+                <Clients>
+                    <Client id-system="BIP-OPEN" statistics="off" system-activation="on">
+                        <Operation name="RequestReply" operation-activation="on"
+                                   out-check-type="none" type="operation">
+                            <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                            <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                <OperationAssignment assignment-type="Operation"
+                                                     id="call_server" id-system="INFOBUS"
+                                                     operation-name="toupper_call"
+                                                     type="assignment"/>
+                            </FlowTemplateInstance>
+                        </Operation>
+                    </Client>
+                </Clients>
+                <Service group-name="TEST_STEFANO_ROSATI" id-service="TOUPPER_PROVA"
+                         service-activation="OFF">
+                    <Clients>
+                        <Client id-system="BIP-OPEN" statistics="off"
+                                system-activation="on">
+                            <Operation name="RequestReply" operation-activation="on"
+                                       out-check-type="none" type="operation">
+                                <Participant id-channel="TEST_CHANNEL" id-system="INFOBUS"/>
+                                <FlowTemplateInstance name="RequestReply" schema="SY_SY">
+                                    <OperationAssignment assignment-type="Operation"
+                                                         id="call_server"
+                                                         id-system="INFOBUS"
+                                                         operation-name="toupper_call"
+                                                         type="assignment"/>
+                                </FlowTemplateInstance>
+                            </Operation>
+                        </Client>
+                    </Clients>
+                </Service>
+            </Service>
         </Service>
     </Services>
 </InfoBUS>

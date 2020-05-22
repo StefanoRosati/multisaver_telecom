@@ -13,7 +13,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -115,5 +114,27 @@ public class DocumentService {
             e.getParentNode().removeChild(e);
         }
  **/
+    }
+    //questo metodo aggiunge un nuovo elemento di tipo service ad un file
+    //il metodo effettua la clonazione di un elemento esistente di tipo Service
+    //quindi ne permette la modifica e infine lo aggiunge in fondo alla lista
+    public String addSingleServiceElement(){
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+            DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
+            Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
+            NodeList services = documento.getElementsByTagName("Services");
+            NodeList service = documento.getElementsByTagName("Service");
+            Node e = service.item((0));
+            Node eclone = e.cloneNode(true);
+            eclone.getAttributes().item(2).setNodeValue("OFF");
+            //eclone.getParentNode().appendChild(eclone);
+            services.item(0).appendChild(eclone);
+            fs.save(documento);
+            return "OK";
+        }
+        catch(Exception e){
+            return "KO";
+        }
     }
 }

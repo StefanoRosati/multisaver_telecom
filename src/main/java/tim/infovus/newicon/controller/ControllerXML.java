@@ -60,4 +60,12 @@ public class ControllerXML {
         return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
     }
 
+    //sostituire con post
+    @GetMapping(value="add/element/document/repository")
+    public ResponseEntity<?> addElementDocumentRepositoryController() throws XMLConfigException, MaxException {
+        String response = ds.addSingleServiceElement();
+        HttpHeaders hh = new HttpHeaders();
+        hh.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
+    }
 }
