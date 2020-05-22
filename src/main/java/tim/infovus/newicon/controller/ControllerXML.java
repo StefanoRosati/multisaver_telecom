@@ -84,5 +84,14 @@ public class ControllerXML {
         hh.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
     }
+    @GetMapping(value="test/multisaver")
+    public ResponseEntity<?> testMultisaver() throws XMLConfigException, MaxException {
+        //String response = ds.multisaver();
+        String response = "";
+        HttpHeaders hh = new HttpHeaders();
+        hh.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
+    }
+
 
 }

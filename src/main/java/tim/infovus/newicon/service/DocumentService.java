@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
 import tim.infobus.configuration.XMLConfigException;
 import tim.infovus.newicon.controller.ControllerXML;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
@@ -22,6 +24,65 @@ import java.util.stream.Stream;
 
 @Service
 public class DocumentService {
+
+    private String xmlFile = "IBShared/InfoBUSPD/InfoBusApplication/conf/documentRepository.xml";
+    private String xmlFile2 =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<!DOCTYPE documents SYSTEM \"file://max/dtds/documentRepository.dtd\">" +
+            "<documents filter-provider=\"MAX_XML_PROVIDER\">\n"+
+            "    <group label=\"InfoBUS - ICon\" name=\"ICon\">\n"+
+            "        <description>Configurazione di ICon.</description>\n"+
+            "        <document label=\"Configuration Tool - PDF Docouments generator configuration\"\n"+
+            "                  name=\"pdfdoc\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"IBShared/InfoBUSPD/InfoBusApplication/conf/pdfDocuments.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Configurazione del generatore di documenti PDF.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "        <document label=\"Configuration Tool - Document Registry\" name=\"documents\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"/IBShared/InfoBUSPD/InfoBUSApplication/conf/documentRepository.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Registry dei documenti di configurazione.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "        <document label=\"Configuration Tool - Version Manager Configuration\"\n"+
+            "                  name=\"versionManager\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"/IBShared/InfoBUSPD/InfoBUSApplication/conf/versionManager.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Configurazione per il version manager.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "        <document label=\"Configuration Tool - XML Functionalities\"\n"+
+            "                  name=\"xmlFunctionalities\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"/IBShared/InfoBUSPD/InfoBUSApplication/conf/xml.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Configurazione delle funzionalita&apos; XML.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "        <document label=\"Configuration Tool - Content providers configuration\"\n"+
+            "                  name=\"contents\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"/IBShared/InfoBUSPD/InfoBUSApplication/conf/contents.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Configurazione dei content providers.\n"+
+            "            I content providers mantengono le informazioni gestite dall&apos;applicazione,\n"+
+            "            rendendo trasparente il supporto di memorizzazione.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "        <document label=\"Document Factory configuration\" name=\"DocumentFactory\">\n"+
+            "            <FileSystemProxy class=\"max.documents.FileSystemDocProxy\"\n"+
+            "                             path=\"/IBShared/InfoBUSPD/InfoBUSApplication/conf/documentFactory.xml\"\n"+
+            "                             type=\"proxy\"/>\n"+
+            "            <description>Configurazione per lo &quot;spezzettamento&quot; dei file di configurazione.</description>\n"+
+            "            <role access=\"rw\" name=\"consoleAdministrator\"/>\n"+
+            "        </document>\n"+
+            "    </group>" +
+            "";
+
     private static final Logger logger = LoggerFactory.getLogger(ControllerXML.class);
 
     public String[] getDocumentRepository() throws XMLConfigException, MaxException {
@@ -172,4 +233,20 @@ public class DocumentService {
         }
     }
 
+    public String multisaver() throws MaxException, XMLConfigException {
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+            DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
+            Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
+            SaveDocumentAction sda = new SaveDocumentAction("1", "test", "test", "test");
+            //XMLBuilder xmlbuilder = new XMLBuilder(documento);
+            XMLBuilder xmlBuilder = new XMLBuilder(xmlFile);
+            sda.doSave(xmlBuilder, null, null);
+            return "OK";
+        }
+        catch(Exception e){
+            logger.info("Excpetion: {}",e);
+            return "KO";
+        }
+    }
 }

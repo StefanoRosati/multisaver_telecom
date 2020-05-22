@@ -1,0 +1,5 @@
+<!DOCTYPE documents SYSTEM "file://max/dtds/versionManager.dtd">
+
+<version-manager>
+    <content-provider name="VERSION_MANAGER"/>
+</version-manager>

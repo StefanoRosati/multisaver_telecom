@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- <!DOCTYPE documents SYSTEM "file://max/dtds/documentRepository.dtd"> -->
+<!DOCTYPE documents SYSTEM "file://max/dtds/documentRepository.dtd">
 
 <documents filter-provider="MAX_XML_PROVIDER">
     <group label="InfoBUS - ICon" name="ICon">
