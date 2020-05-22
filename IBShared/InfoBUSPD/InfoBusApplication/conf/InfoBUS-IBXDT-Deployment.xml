@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- <!DOCTYPE InfoBUSIBXDT SYSTEM "file://InfoBUS-IBXDT-Deployment.dtd?env=R4J"> -->
+
+<InfoBUSIBXDT version="4.5">
+    <group deployment-unit="ejb-ibxdt-1.0.0.jar" enabled="true" id-group="DEFAULT_GRP">
+        <ibxdt configuration="IBXDTConfiguration.xml" ejb-name="IBXDT" enabled="true"
+               initial-beans-in-free-pool="10" max-beans-in-free-pool="10"/>
+    </group>
+</InfoBUSIBXDT>

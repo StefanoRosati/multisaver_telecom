@@ -68,4 +68,21 @@ public class ControllerXML {
         hh.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
     }
+
+    @GetMapping(value="find/jar")
+    public ResponseEntity<?> findJarController() throws XMLConfigException, MaxException {
+        String response = ds.accessJarFile();
+        HttpHeaders hh = new HttpHeaders();
+        hh.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value="get/document/base")
+    public ResponseEntity<?> getDocumentRepositoryBaseController() throws XMLConfigException, MaxException {
+        String response = ds.getDocumentRepositoryBase();
+        HttpHeaders hh = new HttpHeaders();
+        hh.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(response,hh, HttpStatus.CREATED);
+    }
+
 }

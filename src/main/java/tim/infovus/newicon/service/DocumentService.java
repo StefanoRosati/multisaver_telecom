@@ -11,6 +11,7 @@ import tim.infobus.configuration.XMLConfigException;
 import tim.infovus.newicon.controller.ControllerXML;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -122,6 +123,7 @@ public class DocumentService {
         try {
             DocumentRepository docrepo = DocumentRepository.instance();
             DocumentProxy fs = docrepo.getDocumentProxy("InfobusServicesConfig-R4J-3");
+            //Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
             Document documento = docrepo.getDocument("InfobusServicesConfig-R4J-3"); //pdfdoc
             NodeList services = documento.getElementsByTagName("Services");
             NodeList service = documento.getElementsByTagName("Service");
@@ -137,4 +139,37 @@ public class DocumentService {
             return "KO";
         }
     }
+
+    public String accessJarFile() throws MaxException {
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+
+            DocumentProxy fs = docrepo.getDocumentProxy("IbxdtDeploymentDescriptors");
+            Document documento = docrepo.getDocument("IbxdtDeploymentDescriptors"); //pdfdoc
+            NodeList zipDerived = documento.getElementsByTagName("Zip-Derived");
+            Node elementoZipDerivedList = zipDerived.item(0);
+            String nameNode = elementoZipDerivedList.getNodeName();
+            return "OK";
+        }
+        catch(Exception e){
+            return "KO";
+        }
+    }
+
+    public String getDocumentRepositoryBase() throws MaxException {
+        try {
+            DocumentRepository docrepo = DocumentRepository.instance();
+            DocumentProxy docproxy = docrepo.getDocumentProxy("documents");
+            Document docbase = docproxy.load();
+            NodeList zipderivedList = docbase.getElementsByTagName("Zip-Derived");
+            Node zipderivedElement = zipderivedList.item(0);
+            String nodeValue = zipderivedElement.getAttributes().item(2).getNodeValue();
+            String zipderivedNodeName = zipderivedElement.getNodeName();
+            return nodeValue;
+        }
+        catch(Exception e){
+            return "KO";
+        }
+    }
+
 }

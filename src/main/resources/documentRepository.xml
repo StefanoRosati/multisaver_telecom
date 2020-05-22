@@ -4244,7 +4244,7 @@ I documenti in questo gruppo dovranno, a lavoro concluso, essere spostati nei gr
         <document label="IBXDT Deployment Descriptors" name="IbxdtDeploymentDescriptors">
             <MasterDerivedProxy class="max.documents.MasterDerivedDocProxy" type="proxy">
                 <FileSystemProxy class="max.documents.FileSystemDocProxy"
-                                 path="/IBShared/InfoBUSPD/InfoBUSApplication/conf/InfoBUS-IBXDT-Deployment.xml"
+                                 path="IBShared/InfoBUSPD/InfoBusApplication/conf/InfoBUS-IBXDT-Deployment.xml"
                                  type="proxy"/>
                 <derived name="ibxdt DEFAULT_GRP ejb-jar.xml">
                     <Classpath-StylesheetSource class="max.documents.ClasspathStylesheetSource"
